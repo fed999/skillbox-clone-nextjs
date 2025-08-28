@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Widget</title>
+    <style>
+        #popup {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw;
+            height: 80vh;
+            background: rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="pptsecrets-widget-container"></div>
+    <div id="popup">
+        <script>
+            const params = new URLSearchParams(window.location.search);
+            const widgetId = params.get('widgetId');
+            const scriptSrc = params.get('scriptSrc');
+        
+            if (widgetId && scriptSrc) {
+              const script = document.createElement('script');
+              script.id = widgetId;
+              script.src = decodeURIComponent(scriptSrc);
+              document.getElementById('pptsecrets-widget-container').appendChild(script);
+            }
+          </script>
+    </div>
+
+</body>
+</html>
+
