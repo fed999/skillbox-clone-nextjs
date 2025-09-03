@@ -4,6 +4,14 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import CustomSlider from "@/components/ui/CustomSlider";
 import { Suspense } from 'react';
 import { Metrika } from '@/components/metrika';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css'; //Import default styles
+
+const MyPopup = () => (
+  <Popup trigger ={<button> Open Popup</button>} position="right center">
+    <div>This is a simple popup!</div>
+  </Popup>
+);
 
 declare global {
   interface Window {
