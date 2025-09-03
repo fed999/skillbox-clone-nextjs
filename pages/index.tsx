@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import CustomSlider from "@/components/ui/CustomSlider";
 import { Suspense } from 'react';
 import { Metrika } from '@/components/metrika';
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css'; //Import default styles
 
-const MyPopup = () => (
-  <Popup trigger ={<button> Open Popup</button>} position="right center">
-    <div>This is a simple popup!</div>
-  </Popup>
-);
+import SinglePopupButton from './SinglePopupButton';
 
 declare global {
   interface Window {
@@ -110,95 +104,60 @@ const tariffs: Tariff[] = [
 ];
 
 export default function SkillboxClone() {
-  const openWidgetPopup = (tariffId: string) => {
-    const urlMap: { [key: string]: string } = {
-      basic: "/ppt-basic.html",
-      start: "/ppt-start.html",
-      pro: "/ppt-pro.html",
-      expert: "/ppt-expert.html",
-    };
-  
-    const url = urlMap[tariffId];
-    if (url) {
-      window.open(
-        url,
-        "_blank",
-        "width=800,height=900,resizable=yes,scrollbars=yes"
-      );
-    }
-  };
-  
-  
-  
-
   return (
     <main className="flex flex-col items-center w-full min-h-screen text-gray-800 bg-[#F9FAFB] font-sans">
-                <link rel="icon" href="/favicon.ico" sizes="any" />
-<section className="relative py-14">
-
-<header className="flex items-center justify-between max-w-7xl mx-auto w-full mb-8 px-4">
-      {/* Логотип SVG слева */}
-      <div className="flex items-center gap-2">
-      <img src="/logo.svg" alt="Логотип" className="w-10 h-10" />
-        <span className="font-semibold text-lg sm:text-xl">PPTSecrets</span>
-      </div>
-
-      {/* Справа в одну строку */}
-      <p className="font-semibold text-sm sm:text-base text-gray-800">
-        Онлайн-курс "<span className="text-blue-600">Секреты PowerPoint</span>"
-      </p>
-    </header>
-  <div className="px-4 mx-auto max-w-7xl">
-    <div className="bg-[#0B1120] rounded-3xl px-6 py-16 shadow-lg">
-      <div className="max-w-7xl mx-auto text-center">
-        <h1 className="text-4xl font-bold sm:text-6xl">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-white">
-            Зарабатывай на презентациях с PowerPoint!
-          </span>
-        </h1>
-        <p className="mt-5 text-base text-white sm:text-xl">
-          Присоединяйся к онлайн-обучению: монетизируй свои навыки, выделяйся, делай вау-презентации в любой сфере.
-        </p>
-        <a
-          href="#tariffs"
-          className="inline-flex items-center px-6 py-4 mt-8 font-semibold text-white transition-all bg-blue-600 rounded-lg sm:mt-16 hover:bg-blue-700 focus:bg-blue-700"
-        >
-          Записаться сейчас!
-          <svg className="w-6 h-6 ml-8 -mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </a>
-
-        {/* Преимущества-статы */}
-        <div className="flex flex-wrap justify-center gap-4 mt-12">
-          {[
-            { title: "Обучение с нуля", value: ">100", sub: "Учеников" },
-            { title: "Помощь куратора", value: ">120", sub: "Видео-уроков" },
-            { title: "Ваш заработок", value: "~1500₽", sub: "За один слайд" }
-          ].map((item, idx) => (
-            <div
-              key={idx}
-              className="bg-[#131A2B] rounded-xl flex flex-col items-center justify-center shadow min-w-[180px] min-h-[112px] w-full max-w-[200px] py-6 px-3"
-            >
-              <p className="text-xs text-gray-400 mb-1 text-center">{item.title}</p>
-              <p className="text-xl text-white font-bold mb-0.5 text-center">{item.value}</p>
-              <p className="text-xs text-gray-400 text-center">{item.sub}</p>
+      <link rel="icon" href="/favicon.ico" sizes="any" />
+      <section className="relative py-14">
+        <header className="flex items-center justify-between max-w-7xl mx-auto w-full mb-8 px-4">
+          <div className="flex items-center gap-2">
+            <img src="/logo.svg" alt="Логотип" className="w-10 h-10" />
+            <span className="font-semibold text-lg sm:text-xl">PPTSecrets</span>
+          </div>
+          <p className="font-semibold text-sm sm:text-base text-gray-800">
+            Онлайн-курс "<span className="text-blue-600">Секреты PowerPoint</span>"
+          </p>
+        </header>
+        <div className="px-4 mx-auto max-w-7xl">
+          <div className="bg-[#0B1120] rounded-3xl px-6 py-16 shadow-lg">
+            <div className="max-w-7xl mx-auto text-center">
+              <h1 className="text-4xl font-bold sm:text-6xl">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-white">
+                  Зарабатывай на презентациях с PowerPoint!
+                </span>
+              </h1>
+              <p className="mt-5 text-base text-white sm:text-xl">
+                Присоединяйся к онлайн-обучению: монетизируй свои навыки, выделяйся, делай вау-презентации в любой сфере.
+              </p>
+              <a
+                href="#tariffs"
+                className="inline-flex items-center px-6 py-4 mt-8 font-semibold text-white transition-all bg-blue-600 rounded-lg sm:mt-16 hover:bg-blue-700 focus:bg-blue-700"
+              >
+                Записаться сейчас!
+                <svg className="w-6 h-6 ml-8 -mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </a>
+              <div className="flex flex-wrap justify-center gap-4 mt-12">
+                {[
+                  { title: "Обучение с нуля", value: ">100", sub: "Учеников" },
+                  { title: "Помощь куратора", value: ">120", sub: "Видео-уроков" },
+                  { title: "Ваш заработок", value: "~1500₽", sub: "За один слайд" }
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-[#131A2B] rounded-xl flex flex-col items-center justify-center shadow min-w-[180px] min-h-[112px] w-full max-w-[200px] py-6 px-3"
+                  >
+                    <p className="text-xs text-gray-400 mb-1 text-center">{item.title}</p>
+                    <p className="text-xl text-white font-bold mb-0.5 text-center">{item.value}</p>
+                    <p className="text-xs text-gray-400 text-center">{item.sub}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-      {/* ТАРИФЫ */}
-      
-
-
-      {/* БЛОК СО СЛАЙДЕРОМ */}
+      </section>
       <CustomSlider />
-
-      {/* БЛОК СО ГИФ */}
       <section className="w-full py-12">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className={`${SECTION_TITLE} text-center`}>
@@ -233,8 +192,6 @@ export default function SkillboxClone() {
           </div>
         </div>
       </section>
-
-      {/* КОМУ ПОДХОДИТ КУРС */}
       <section className="w-full py-12">
         <h2 className={`${SECTION_TITLE} text-center`}>
           Кому подходит этот курс
@@ -280,12 +237,9 @@ export default function SkillboxClone() {
           </div>
         </div>
       </section>
-
-      {/* ТАРИФЫ */}
       <section className="w-full py-12 flex flex-col items-center" id="tariffs">
-      <h2 className="text-4xl font-bold mb-8 text-center">Тарифы обучения</h2>
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-7xl w-full px-4">
+        <h2 className="text-4xl font-bold mb-8 text-center">Тарифы обучения</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-7xl w-full px-4">
           {tariffs.map((tariff) => (
             <div 
               key={tariff.id}
@@ -294,12 +248,10 @@ export default function SkillboxClone() {
               <div className="w-full">
                 <h3 className="text-xl font-semibold text-center text-gray-800">{tariff.name}</h3>
                 <p className="text-sm text-gray-500 text-center mt-1">Можно в рассрочку</p>
-                
                 <div className="flex flex-col items-center mt-4 mb-4">
                   <p className="line-through text-gray-400">{tariff.old}</p>
                   <p className="text-2xl font-bold text-blue-600 mt-1">{tariff.price}</p>
                 </div>
-                
                 <ul className="mt-4 text-sm text-gray-700 space-y-2">
                   {tariff.features.map((feature, i) => (
                     <li key={i} className="flex items-start">
@@ -311,20 +263,17 @@ export default function SkillboxClone() {
                   ))}
                 </ul>
               </div>
-            
-            <button
-  onClick={() => openWidgetPopup(tariff.id)}
-  className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition w-full font-medium"
->
-  Записаться
-</button>
-
-          </div>
-        ))}
-      </div>
-
-    </section>
-      {/* ОТЗЫВЫ */}
+              <SinglePopupButton
+                buttonId={tariff.id}
+                label="Записаться"
+                title={`Записаться на тариф "${tariff.name}"`}
+                scriptSrc={tariff.scriptSrc}
+                scriptId={tariff.scriptId}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
       <section className="w-full py-12">
         <div className={`${CONTAINER} flex flex-col gap-6`}>
           <h2 className={`${SECTION_TITLE} text-center`}>Отзывы</h2>
@@ -365,8 +314,6 @@ export default function SkillboxClone() {
           </div>
         </div>
       </section>
-
-      {/* FAQ */}
       <section className="w-full py-12">
         <div className={`${CONTAINER} flex flex-col gap-6`}>
           <h2 className={`${SECTION_TITLE} text-center`}>Часто задаваемые вопросы</h2>
@@ -381,7 +328,6 @@ export default function SkillboxClone() {
                 </span>
               </AccordionContent>
             </AccordionItem>
-
             <AccordionItem value="faq2">
               <AccordionTrigger>
                 <span className={CARD_TITLE}>Какую версию PowerPoint мне следует использовать?</span>
@@ -392,7 +338,6 @@ export default function SkillboxClone() {
                 </span>
               </AccordionContent>
             </AccordionItem>
-
             <AccordionItem value="faq3">
               <AccordionTrigger>
                 <span className={CARD_TITLE}>Получу ли я сертификат после прохождения курса?</span>
@@ -403,7 +348,6 @@ export default function SkillboxClone() {
                 </span>
               </AccordionContent>
             </AccordionItem>
-
             <AccordionItem value="faq4">
               <AccordionTrigger>
                 <span className={CARD_TITLE}>Есть ли возможность оплатить курс частями?</span>
@@ -414,7 +358,6 @@ export default function SkillboxClone() {
                 </span>
               </AccordionContent>
             </AccordionItem>
-
             <AccordionItem value="faq5">
               <AccordionTrigger>
                 <span className={CARD_TITLE}>Подходит ли ваш курс для начинающих в дизайне?</span>
@@ -425,7 +368,6 @@ export default function SkillboxClone() {
                 </span>
               </AccordionContent>
             </AccordionItem>
-
             <AccordionItem value="faq6">
               <AccordionTrigger>
                 <span className={CARD_TITLE}>Где будет проходить обучение?</span>
@@ -436,7 +378,6 @@ export default function SkillboxClone() {
                 </span>
               </AccordionContent>
             </AccordionItem>
-
             <AccordionItem value="faq7">
               <AccordionTrigger>
                 <span className={CARD_TITLE}>Как часто мне будут давать задания?</span>
@@ -447,7 +388,6 @@ export default function SkillboxClone() {
                 </span>
               </AccordionContent>
             </AccordionItem>
-
             <AccordionItem value="faq8">
               <AccordionTrigger>
                 <span className={CARD_TITLE}>Сколько времени займет прохождение курса?</span>
@@ -461,8 +401,6 @@ export default function SkillboxClone() {
           </Accordion>
         </div>
       </section>
-      
-      {/* FOOTER */}
       <footer className="w-full bg-[#F3F4F6] dark:bg-[#E5E7EB] py-8 text-center text-sm text-gray-600">
         <div className={CONTAINER}>
           <p className="mb-2">
@@ -490,8 +428,8 @@ export default function SkillboxClone() {
         </div>
       </footer>
       <Suspense>
-          <Metrika />
-        </Suspense>
+        <Metrika />
+      </Suspense>
     </main>
   );
 }
