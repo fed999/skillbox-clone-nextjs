@@ -1,8 +1,8 @@
-import React from 'react';
+import { heroStats } from "@/src/data/content";
 
-const HeroSection = () => {
+const Hero = () => {
   return (
-    <section className="relative py-14">
+    <section className="relative w-full">
       <div className="px-4 mx-auto max-w-7xl">
         <div className="bg-[#0B1120] rounded-3xl px-6 py-16 shadow-lg">
           <div className="max-w-7xl mx-auto text-center">
@@ -16,20 +16,15 @@ const HeroSection = () => {
             </p>
             <a
               href="#tariffs"
-              className="inline-flex items-center px-6 py-4 mt-8 font-semibold text-white transition-all bg-blue-600 rounded-lg sm:mt-16 hover:bg-blue-700 focus:bg-blue-700"
+              className="inline-flex items-center px-6 py-4 mt-8 font-semibold text-white transition-all duration-300 ease-in-out bg-blue-600 rounded-lg sm:mt-16 hover:bg-blue-700 focus:bg-blue-700 transform hover:scale-105"
             >
               Записаться сейчас!
               <svg className="w-6 h-6 ml-8 -mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </a>
-
             <div className="flex flex-wrap justify-center gap-4 mt-12">
-              {[
-                { title: "Обучение с нуля", value: ">100", sub: "Учеников" },
-                { title: "Помощь куратора", value: ">120", sub: "Видео-уроков" },
-                { title: "Ваш заработок", value: "~1500₽", sub: "За один слайд" }
-              ].map((item, idx) => (
+              {heroStats.map((item, idx) => (
                 <div
                   key={idx}
                   className="bg-[#131A2B] rounded-xl flex flex-col items-center justify-center shadow min-w-[180px] min-h-[112px] w-full max-w-[200px] py-6 px-3"
@@ -47,4 +42,4 @@ const HeroSection = () => {
   );
 };
 
-export default HeroSection;
+export default Hero;
