@@ -60,8 +60,15 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply scroll-smooth;
+  }
   body {
     @apply bg-background text-foreground;
+    line-height: 1.6;
   }
 }
 
+/* Пользовательские классы для react-modal были удалены, 
+  так как компонент SinglePopupButton теперь использует стили Tailwind.
+*/
