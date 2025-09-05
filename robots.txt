@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /*.php$
+Disallow: /*.inc$
+Disallow: /*.sql$
+Disallow: /*.gz$
+Disallow: /?*
+Disallow: /*?*
+
+Sitemap: https://kurs.pptsecrets.com/sitemap.xml
