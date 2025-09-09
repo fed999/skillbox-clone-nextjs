@@ -5,7 +5,7 @@ interface SinglePopupButtonProps {
   label: string;
   title: string;
   scriptSrc: string;
-  scriptId: string; // Добавьте это свойство
+  scriptId: string; // Обязательный пропс
 }
 
 const SinglePopupButton: React.FC<SinglePopupButtonProps> = ({ label, title, scriptSrc, scriptId }) => {
@@ -47,7 +47,7 @@ const SinglePopupButton: React.FC<SinglePopupButtonProps> = ({ label, title, scr
     const handleMessage = (event: MessageEvent) => {
       if (
         event.origin === 'https://pptsecrets.ru' && 
-        event.data.uniqName === scriptId && // Используем `scriptId` из пропсов
+        event.data.uniqName === scriptId && // Использование динамического scriptId
         event.data.height
       ) {
         setIframeHeight(`${event.data.height}px`);
@@ -59,7 +59,7 @@ const SinglePopupButton: React.FC<SinglePopupButtonProps> = ({ label, title, scr
     return () => {
       window.removeEventListener('message', handleMessage, false);
     };
-  }, [scriptId]); // Добавьте `scriptId` в массив зависимостей, чтобы хук обновлялся
+  }, [scriptId]);
 
   const customStyles = {
     overlay: {

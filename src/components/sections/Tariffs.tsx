@@ -33,7 +33,7 @@ const Tariffs = () => {
                     label="Записаться"
                     title={`Записаться на тариф "${tariff.name}"`}
                     scriptSrc={tariff.scriptSrc}
-                    scriptId={tariff.scriptId}
+                    scriptId={tariff.scriptId} // Передаём scriptId
                 />
                 </div>
             ))}
