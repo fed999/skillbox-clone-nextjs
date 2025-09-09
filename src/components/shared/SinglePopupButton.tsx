@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Modal from 'react-modal';
+import { Styles } from 'react-modal';
 
 interface SinglePopupButtonProps {
   label: string;
-  title: string;
   scriptSrc: string;
-  scriptId: string; // Обязательный пропс
+  scriptId: string;
 }
 
-const SinglePopupButton: React.FC<SinglePopupButtonProps> = ({ label, title, scriptSrc, scriptId }) => {
+const SinglePopupButton: React.FC<SinglePopupButtonProps> = ({ label, scriptSrc, scriptId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [iframeUrl, setIframeUrl] = useState('');
-  const [iframeHeight, setIframeHeight] = useState('500px');
+  const [iframeHeight, setIframeHeight] = useState('600px');
   const iframeRef = useRef(null);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const SinglePopupButton: React.FC<SinglePopupButtonProps> = ({ label, title, scr
     const handleMessage = (event: MessageEvent) => {
       if (
         event.origin === 'https://pptsecrets.ru' && 
-        event.data.uniqName === scriptId && // Использование динамического scriptId
+        event.data.uniqName === scriptId &&
         event.data.height
       ) {
         setIframeHeight(`${event.data.height}px`);
@@ -61,7 +61,12 @@ const SinglePopupButton: React.FC<SinglePopupButtonProps> = ({ label, title, scr
     };
   }, [scriptId]);
 
-  const customStyles = {
+  const closeModal = () => {
+    setIsOpen(false);
+    setIframeHeight('600px'); // Сброс высоты iframe
+  };
+
+  const customStyles: Styles = {
     overlay: {
       position: 'fixed' as 'fixed',
       top: 0,
@@ -87,6 +92,9 @@ const SinglePopupButton: React.FC<SinglePopupButtonProps> = ({ label, title, scr
       maxWidth: '500px',
       width: '90%',
       maxHeight: '90vh',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
     },
   };
 
@@ -101,13 +109,10 @@ const SinglePopupButton: React.FC<SinglePopupButtonProps> = ({ label, title, scr
 
       <Modal
         isOpen={isOpen}
-        onRequestClose={() => setIsOpen(false)}
+        onRequestClose={closeModal}
         style={customStyles}
-        contentLabel={`${title} Modal`}
       >
         <div className="flex flex-col h-full">
-          <div className="p-4 bg-gray-50 border-b border-gray-200 text-center">
-            <h3 className="m-0 font-semibold text-lg text-gray-800">{title}</h3>
           </div>
           
           <div className="flex-grow overflow-y-auto">
@@ -118,7 +123,6 @@ const SinglePopupButton: React.FC<SinglePopupButtonProps> = ({ label, title, scr
                 className="w-full border-none block"
                 style={{ height: iframeHeight }}
                 allowFullScreen
-                title={title}
               />
             ) : (
               <div className="w-full h-[500px] flex items-center justify-center">
@@ -126,18 +130,8 @@ const SinglePopupButton: React.FC<SinglePopupButtonProps> = ({ label, title, scr
               </div>
             )}
           </div>
-
-          <div className="p-4 text-center bg-gray-50 border-t border-gray-200">
-            <button
-              onClick={() => setIsOpen(false)}
-              className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
-            >
-              Закрыть
-            </button>
-          </div>
-
           <button
-            onClick={() => setIsOpen(false)}
+            onClick={closeModal}
             className="absolute top-2 right-2 p-2 text-gray-400 rounded-full hover:bg-gray-200 hover:text-gray-600 transition-colors"
             aria-label="Закрыть"
           >
@@ -146,7 +140,6 @@ const SinglePopupButton: React.FC<SinglePopupButtonProps> = ({ label, title, scr
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
           </button>
-        </div>
       </Modal>
     </>
   );
